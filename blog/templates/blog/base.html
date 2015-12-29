@@ -1,5 +1,4 @@
 {% load staticfiles %}
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,16 +8,18 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
 
-
-    <title>{% block title %}{% endblock %} &ndash; Blog</title>
+    <title>{% block title %}{% endblock %} &ndash; ELM</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- User CSS -->
-
+    <!-- Custom styles for this template -->
+    <link href="{% static 'blog/blog.css' %}" rel="stylesheet">
     <link href="{% static 'blog/style.css' %}" rel="stylesheet">
+
+
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -27,40 +28,98 @@
     <![endif]-->
   </head>
 
+      <script>
+        function clickLink(id){
+            elements_menu = document.getElementsByClassName('blog-nav-item');
+            for (var i = 0; i < elements_menu.length; ++i){
+                if (elements_menu[i].getAttribute('id') == id){
+                    elements_menu[i].classList.add('active')
+                }else{
+                    elements_menu[i].classList.remove('active')
+                }
+            }
+        }
+    </script>
+
   <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="blog-masthead">
       <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
+        <nav class="blog-nav">
+          <a class="blog-nav-item" id="home" href="{% url 'home' %}" onclick=clickLink('home')>Дом</a>
+          <a class="blog-nav-item" href="#">New features</a>
+          <a class="blog-nav-item" href="#">Press</a>
+          <a class="blog-nav-item" href="#">New hires</a>
+          <a class="blog-nav-item" id="about" href="{% url 'about' %}" onclick=clickLink('about')>О проекте</a>
+        </nav>
       </div>
-    </nav>
+    </div>
 
-    <div class="container main-content">
-        {% block content %}
-        {% endblock %}
+    <div class="container">
+
+
+      <div class="blog-header">
+        {% block header-page %}{% endblock %}
+      </div>
+
+      <div class="row">
+      <div class="col-sm-8 blog-main">
+
+      {% block content %}
+      {% endblock %}
+
+      </div>
+
+        <!-- /.blog-main -->
+
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          <div class="sidebar-module sidebar-module-inset">
+            <h4>About</h4>
+            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+          </div>
+          <div class="sidebar-module">
+            <h4>Archives</h4>
+            <ol class="list-unstyled">
+              <li><a href="#">March 2014</a></li>
+              <li><a href="#">February 2014</a></li>
+              <li><a href="#">January 2014</a></li>
+              <li><a href="#">December 2013</a></li>
+              <li><a href="#">November 2013</a></li>
+              <li><a href="#">October 2013</a></li>
+              <li><a href="#">September 2013</a></li>
+              <li><a href="#">August 2013</a></li>
+              <li><a href="#">July 2013</a></li>
+              <li><a href="#">June 2013</a></li>
+              <li><a href="#">May 2013</a></li>
+              <li><a href="#">April 2013</a></li>
+            </ol>
+          </div>
+          <div class="sidebar-module">
+            <h4>Elsewhere</h4>
+            <ol class="list-unstyled">
+              <li><a href="#">GitHub</a></li>
+              <li><a href="#">Twitter</a></li>
+              <li><a href="#">Facebook</a></li>
+            </ol>
+          </div>
+        </div><!-- /.blog-sidebar -->
+
+      </div><!-- /.row -->
+
     </div><!-- /.container -->
+
+    <footer class="blog-footer">
+      <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+      <p>
+        <a href="#">Back to top</a>
+      </p>
+    </footer>
 
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
   </body>
