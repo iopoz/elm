@@ -32,7 +32,7 @@ def display_article(request, article_id):
     context['article'] = get_object_or_404(Article, id=article_id)
     context['subjects'] = Subject.objects.all()
     context['comments'] = Comments.objects.filter(comments_article_id = article_id)
-    context['form'] = comment_form
+    context['form'] = comment_form['comments_text']
 
     return render(request, 'blog/article.html', context)
 
@@ -41,4 +41,14 @@ def addlike(request, article_id):
     article = get_object_or_404(Article, id=article_id)
     article.article_likes +=1
     article.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def addcomment(request, article_id):
+    if request.POST:
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.comments_article = Article.objects.get(id=article_id)
+            form.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

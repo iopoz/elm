@@ -31,11 +31,14 @@
     </ul>
 
     </div>
-    <form action ="article/addcoment/{{ article.id }}" method="post">
+    <form action ="{% url 'addcomment' article.id %}" method="post">
             {% csrf_token %}
-            {{ form }}
+                <div class="comment-field">
+                    {{ form }}
+                </div>
+            <br>
             <input type="submit" class="button" value="Добавить комментарий">
-        </form>
+    </form>
 
 {% endblock %}
 

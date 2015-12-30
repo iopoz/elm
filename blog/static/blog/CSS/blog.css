@@ -161,6 +161,14 @@ h6, .h6 {
 .post-comment {
   word-wrap: break-word;
 }
+.comment-field {
+  height: 100px;
+
+}
+textarea {
+  height: 100px;
+  width: 100%;
+}
 
 /*
  * Footer
