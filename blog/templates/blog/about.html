@@ -12,3 +12,9 @@
 {% block content %}
 <p class="lead blog-description"> &copy; Электронная энциклопедия для мужчин</p>
 {% endblock %}
+
+{% block subjects %}
+    {% for subject in subjects %}
+        <li><a href="#">{{ subject.subject_name }}</a></li>
+    {% endfor %}
+{% endblock %}

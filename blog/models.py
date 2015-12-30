@@ -3,7 +3,7 @@ from django.db import models
 
 
 # Create your models here.
-
+TEXT_LEN = 1000
 
 class Subject(models.Model):
     class Meta:
@@ -26,6 +26,12 @@ class Article(models.Model):
 
     def __str__(self):
         return self.article_title
+
+    def get_short_text(self):
+        if len(self.article_text)>TEXT_LEN:
+            return self.article_text[:TEXT_LEN]
+        else:
+            return self.article_text
 
 
 class Comments(models.Model):
