@@ -43,7 +43,27 @@
 
   <body>
 
+
+    <div class="container">
+        <div id="login_form" class="envelope">
+            <a class="close-btn" href="javascript:void(0)" onclick = "document.getElementById('login_form').style.display='none';document.getElementById('fade').style.display='none'">Закрыть</a>
+            <h1 class="title">Войти</h1>
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                    <input type="text" name="username" id="username" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'* Ваше Имя':this.value;" value="* Ваше Имя" class="your-name"/>
+		            <input type="password" name="password" id="password" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'* Ваш Пароль':this.value;" value="* Ваш Пароль" class="email-address"/>
+                {% if login_error %}
+                    <label class="errors">{{ login_error }}</label>
+                {% endif %}
+                <input class="send-message" type="submit" value="Войти">
+            </form>
+        </div>
+    </div>
+
+    <div id="fade" class="black-overlay"></div>
+
     <div class="blog-masthead">
+
       <div class="container">
         <nav class="blog-nav">
           <a class="blog-nav-item" id="home" href="{% url 'home' %}" onclick=clickLink('home')>Дом</a>
@@ -51,8 +71,22 @@
           <a class="blog-nav-item" href="#">Press</a>
           <a class="blog-nav-item" href="#">New hires</a>
           <a class="blog-nav-item" id="about" href="{% url 'about' %}" onclick=clickLink('about')>О проекте</a>
+            {% if username %}
+                <a class="blog-nav-login" id="logout" href="/auth/logout/">Выйти ({{ username }})</a>
+            {% else %}
+                <a class="blog-nav-login" id="login" href="javascript:void(0)" onclick="document.getElementById('login_form').style.display='block';document.getElementById('fade').style.display='block'"> Войти</a>
+            {% endif %}
         </nav>
+      <div>
+        <section>
+          <ul>
+
+            </ul>
+        </section>
       </div>
+      </div>
+
+
     </div>
 
     <div class="container">
@@ -73,10 +107,12 @@
         <!-- /.blog-main -->
 
         <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+        <!--
           <div class="sidebar-module sidebar-module-inset">
             <h4>Авторизация</h4>
             <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
           </div>
+          -->
           <div class="sidebar-module">
             <h4>Разделы</h4>
             <ol class="list-unstyled">
@@ -110,6 +146,30 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <script>
+        var div = document.getElementById('login_form');
+        function hiddenShow()
+        {
+           if (div.className == 'login-block-hidden')
+           {
+              div.className='login-block-visible';
+           } else {
+              div.className='login-block-hidden';
+           }
+        }
+
+        function hide(evt)
+        {
+           if (evt.target != document.getElementById('login'))
+           {
+              div.className='login-block-hidden';
+           }
+        }
+        div.addEventListener('click', hiddenShow, false);
+        var body = (document.body) ? document.body : document.documentElement.childNodes[1];
+        body.addEventListener('click', hide, false);
+    </script>
 
   </body>
 </html>
