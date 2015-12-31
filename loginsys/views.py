@@ -12,16 +12,16 @@ def login(request):
     context.update(csrf(request))
     if request.POST:
         username = request.POST.get('username', '')
-        password = request.Post.get('password', '')
+        password = request.POST.get('password', '')
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             auth.login(request,user)
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
-            context['login_error'] = '???????????? ?? ??????'
-            return render_to_response('login.html', context)
+            context['login_error'] = 'Неверно введены данные пользователя'
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'), context)
     else:
-        return render_to_response('login.html', context)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'), context)
 
 
 def logout(request):

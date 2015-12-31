@@ -44,7 +44,27 @@
   <body>
 
 
-    <div class="container">
+
+
+    <div class="blog-masthead">
+
+      <div class="container">
+        <nav class="blog-nav">
+          <a class="blog-nav-item" id="home" href="{% url 'home' %}" onclick=clickLink('home')>Дом</a>
+          <a class="blog-nav-item" href="#">New features</a>
+          <a class="blog-nav-item" href="#">Press</a>
+          <a class="blog-nav-item" href="#">New hires</a>
+          <a class="blog-nav-item" id="about" href="{% url 'about' %}" onclick=clickLink('about')>О проекте</a>
+            {% if username %}
+                <a class="blog-nav-login" id="logout" href="{% url 'logout' %}">Выйти ({{ username }})</a>
+            {% else %}
+                <a class="blog-nav-login" id="login" href="javascript:void(0)" onclick="document.getElementById('login_form').style.display='block';document.getElementById('fade').style.display='block'"> Войти</a>
+            {% endif %}
+        </nav>
+      </div>
+    </div>
+
+    <div>
         <div id="login_form" class="envelope">
             <a class="close-btn" href="javascript:void(0)" onclick = "document.getElementById('login_form').style.display='none';document.getElementById('fade').style.display='none'">Закрыть</a>
             <h1 class="title">Войти</h1>
@@ -61,33 +81,6 @@
     </div>
 
     <div id="fade" class="black-overlay"></div>
-
-    <div class="blog-masthead">
-
-      <div class="container">
-        <nav class="blog-nav">
-          <a class="blog-nav-item" id="home" href="{% url 'home' %}" onclick=clickLink('home')>Дом</a>
-          <a class="blog-nav-item" href="#">New features</a>
-          <a class="blog-nav-item" href="#">Press</a>
-          <a class="blog-nav-item" href="#">New hires</a>
-          <a class="blog-nav-item" id="about" href="{% url 'about' %}" onclick=clickLink('about')>О проекте</a>
-            {% if username %}
-                <a class="blog-nav-login" id="logout" href="/auth/logout/">Выйти ({{ username }})</a>
-            {% else %}
-                <a class="blog-nav-login" id="login" href="javascript:void(0)" onclick="document.getElementById('login_form').style.display='block';document.getElementById('fade').style.display='block'"> Войти</a>
-            {% endif %}
-        </nav>
-      <div>
-        <section>
-          <ul>
-
-            </ul>
-        </section>
-      </div>
-      </div>
-
-
-    </div>
 
     <div class="container">
 
@@ -147,7 +140,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-    <script>
+    <!--<script>
         var div = document.getElementById('login_form');
         function hiddenShow()
         {
@@ -169,7 +162,7 @@
         div.addEventListener('click', hiddenShow, false);
         var body = (document.body) ? document.body : document.documentElement.childNodes[1];
         body.addEventListener('click', hide, false);
-    </script>
+    </script> -->
 
   </body>
 </html>
