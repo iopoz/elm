@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 
 {% block login %}
-    <div class="container">
         <form action="{% url 'login' %}" method="post">
             {% csrf_token %}
-            <label for="username">Имя пользователя</label>
-            <input type="text" name="username" id="username">
-            <label for="password">Пароль</label>
-            <input type="password" name="password" id="password">
+                <input type="text" name="username" id="username" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'* Ваше Имя':this.value;" value="* Ваше Имя" style="margin-bottom: 5px"/>
+                <input type="password" name="password" id="password" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'* Ваш Пароль':this.value;" value="* Ваш Пароль" style="margin-bottom: 15px"/>
+                <input type="submit" value="Войти">
             {% if login_error %}
+
                 <label class="errors">{{ login_error }}</label>
             {% endif %}
-            <input class="button" type="submit" value="Войти">
+
         </form>
-    </div>
 {% endblock %}
+
+

@@ -20,6 +20,7 @@ def login(request):
         else:
             context['login_error'] = 'Неверно введены данные пользователя'
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'), context)
+            #return render_to_response('login.html', context)
     else:
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'), context)
 
