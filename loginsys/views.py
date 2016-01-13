@@ -1,10 +1,12 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.http import *
+from django.http.response import HttpResponseRedirectBase
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.shortcuts import render_to_response
 from django.template.context_processors import csrf
 from django.contrib import auth
+from blog.models import *
 
 
 def login(request):
@@ -19,12 +21,17 @@ def login(request):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
             context['login_error'] = 'Неверно введены данные пользователя'
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'), context)
-            #return render_to_response('login.html', context)
+            return redirect('loginerror.html')
+            #return render_to_response('loginerror.html', context)
+            #return HttpResponseRedirectBase(request, context)
     else:
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'), context)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+def loginerror(request):
+    return render_to_response('loginerror.html')

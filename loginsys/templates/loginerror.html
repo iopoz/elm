@@ -40,6 +40,10 @@
 
 {% endblock %}
 
+{% block error %}
+<label class="errors">Неверно введены данные пользователя</label>
+{% endblock %}
+
 {% block subjects %}
     {% for subject in subjects %}
         <li><a href="#">{{ subject.subject_name }}</a></li>
