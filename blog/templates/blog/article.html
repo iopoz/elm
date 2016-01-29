@@ -11,40 +11,50 @@
 {% endblock %}
 
 {% block content %}
+    <div class="col-sm-8 blog-main">
         <h1 class="blog-title-mine">{{ article.article_title }}</h1>
-    <p>{{ article.article_text }}</p>
-    <p class="blog-post-meta">Дата публикации:{{ article.article_date }}<br>Автор: <a href="#">{% block post-autor %}{% endblock %}</a></p>
-    <br>
-    <p> <a style="text-decoration: none;" href="{% url 'addlike' article.id %}"> <img src="{% static 'blog/image/like_icon.png' %}" width="25px" height="25px"> </a>{{ article.article_likes }}</p>
+        <p>{{ article.article_text }}</p>
+        <p class="blog-post-meta">Дата публикации:{{ article.article_date }}<br>Автор: <a href="#">{% block post-autor %}{% endblock %}</a></p>
+        <br>
+        <p> <a style="text-decoration: none;" href="{% url 'addlike' article.id %}"> <img src="{% static 'blog/image/like_icon.png' %}" width="25px" height="25px"> </a>{{ article.article_likes }}</p>
 
-    <hr>
+        <hr>
 
-    <p>Комментарии:</p>
-    <div class="col-sm-offset-1">
-    <ul>
+        <p>Комментарии:</p>
+        <div class="col-sm-offset-1">
+        <ul>
 
-    {% for comment in comments %}
+        {% for comment in comments %}
 
-        <li class ="post-comment">{{ comment.comments_text }}</li>
+            <li class ="post-comment">{{ comment.comments_text }}</li>
 
-    {% endfor %}
+        {% endfor %}
 
-    </ul>
+        </ul>
 
+        </div>
+        <form action ="{% url 'addcomment' article.id %}" method="post">
+                {% csrf_token %}
+                    <div class="comment-field">
+                        {{ form }}
+                    </div>
+                <br>
+                <input type="submit" class="button" value="Добавить комментарий">
+        </form>
     </div>
-    <form action ="{% url 'addcomment' article.id %}" method="post">
-            {% csrf_token %}
-                <div class="comment-field">
-                    {{ form }}
-                </div>
-            <br>
-            <input type="submit" class="button" value="Добавить комментарий">
-    </form>
 
 {% endblock %}
 
 {% block subjects %}
-    {% for subject in subjects %}
-        <li><a href="#">{{ subject.subject_name }}</a></li>
-    {% endfor %}
+    <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+
+        <div class="sidebar-module sidebar-module-inset">
+            <h4>Разделы</h4>
+                <ol class="list-unstyled">
+                {% for subject in subjects %}
+                    <li><a href="#">{{ subject.subject_name }}</a></li>
+                {% endfor %}
+                </ol>
+        </div>
+    </div>
 {% endblock %}

@@ -11,37 +11,47 @@
 {% endblock %}
 
 {% block content %}
-    <h1 class="blog-title-mine">Уголок полезных советов</h1>
-        <p class="lead blog-description">Здесь вы можите найти интересесные статьи по домоводству, а так же поделиться своим опытом с другими.</p>
-    <hr>
-    {% for article in articles %}
+    <div class="col-sm-8 blog-main">
+        <h1 class="blog-title-mine">Уголок полезных советов</h1>
+            <p class="lead blog-description">Здесь вы можите найти интересесные статьи по домоводству, а так же поделиться своим опытом с другими.</p>
+        <hr>
+        {% for article in articles %}
 
-        <div class="blog-post">
-            <a style="text-decoration: none;" href="{% url 'article' article.id %}"><h2 class="blog-post-title">{{ article.article_title }}</h2></a>
-            <p class="blog-post-meta">Дата публикации: {{ article.article_date }}</p>
-            <div>
-                <p>{{ article.get_short_text }}</p>
-                <br>
-                <p class="blog-post-meta">Автор: <a href="#">{% block post-autor %}{% endblock %}</a></p>
-                <br>
-                <p> <a style="text-decoration: none;" href="{% url 'addlike' article.id %}"> <img src="{% static 'blog/image/like_icon.png' %}" width="25px" height="25px"> </a>{{ article.article_likes }}</p>
-            </div>
-            <hr>
-          </div><!-- /.blog-post -->
+            <div class="blog-post">
+                <a style="text-decoration: none;" href="{% url 'article' article.id %}"><h2 class="blog-post-title">{{ article.article_title }}</h2></a>
+                <p class="blog-post-meta">Дата публикации: {{ article.article_date }}</p>
+                <div>
+                    <p>{{ article.get_short_text }}</p>
+                    <br>
+                    <p class="blog-post-meta">Автор: <a href="#">{% block post-autor %}{% endblock %}</a></p>
+                    <br>
+                    <p> <a style="text-decoration: none;" href="{% url 'addlike' article.id %}"> <img src="{% static 'blog/image/like_icon.png' %}" width="25px" height="25px"> </a>{{ article.article_likes }}</p>
+                </div>
+                <hr>
+              </div><!-- /.blog-post -->
 
-    {% endfor %}
+        {% endfor %}
 
-          <nav>
-            <ul class="pager">
-              <li><a href="#">Previous</a></li>
-              <li><a href="#">Next</a></li>
-            </ul>
-          </nav>
+            <nav>
+                <ul class="pager">
+                    <li><a href="#">Previous</a></li>
+                    <li><a href="#">Next</a></li>
+                </ul>
+            </nav>
+    </div>
 
 {% endblock %}
 
 {% block subjects %}
-    {% for subject in subjects %}
-        <li><a href="#">{{ subject.subject_name }}</a></li>
-    {% endfor %}
+    <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+
+        <div class="sidebar-module sidebar-module-inset">
+            <h4>Разделы</h4>
+                <ol class="list-unstyled">
+                {% for subject in subjects %}
+                    <li><a href="#">{{ subject.subject_name }}</a></li>
+                {% endfor %}
+                </ol>
+        </div>
+    </div>
 {% endblock %}

@@ -28,8 +28,8 @@
     <![endif]-->
   </head>
 
-      <script>
-        function clickLink(id){
+  <script>
+      function clickLink(id){
             elements_menu = document.getElementsByClassName('blog-nav-item');
             for (var i = 0; i < elements_menu.length; ++i){
                 if (elements_menu[i].getAttribute('id') == id){
@@ -38,106 +38,53 @@
                     elements_menu[i].classList.remove('active')
                 }
             }
-        }
-    </script>
+      }
+  </script>
 
   <body>
-
-
-
-
-    <div class="blog-masthead">
+      <div class="blog-masthead">
+          <div class="container">
+              <nav class="blog-nav">
+                  <a class="blog-nav-item" id="home" href="{% url 'home' %}" onclick=clickLink('home')>Дом</a>
+                  <a class="blog-nav-item" href="#">New features</a>
+                  <a class="blog-nav-item" href="#">Press</a>
+                  <a class="blog-nav-item" href="#">New hires</a>
+                  <a class="blog-nav-item" id="about" href="{% url 'about' %}" onclick=clickLink('about')>О проекте</a>
+                  {% if username %}
+                    <a class="blog-nav-login"href="{% url 'logout' %}">Выйти({{ username }})</a>
+                  {% else %}
+                    <a class="blog-nav-login" href="{% url 'login' %}"> Войти</a>
+                  {% endif %}
+              </nav>
+          </div>
+      </div>
 
       <div class="container">
-        <nav class="blog-nav">
-          <a class="blog-nav-item" id="home" href="{% url 'home' %}" onclick=clickLink('home')>Дом</a>
-          <a class="blog-nav-item" href="#">New features</a>
-          <a class="blog-nav-item" href="#">Press</a>
-          <a class="blog-nav-item" href="#">New hires</a>
-          <a class="blog-nav-item" id="about" href="{% url 'about' %}" onclick=clickLink('about')>О проекте</a>
-            {% if username %}
-                <p class="blog-nav-login">Приветствую тебя, {{ username }}</p>
-            {% else %}
-                <p class="blog-nav-login"> Приветствую тебя, странник!</p>
-            {% endif %}
-        </nav>
-      </div>
-    </div>
 
+          <div class="blog-header">
 
-
-    <div id="fade" class="black-overlay"></div>
-
-    <div class="container">
-
-      <div class="blog-header">
-
-      </div>
-
-
-
-      <div class="row">
-      <div class="col-sm-8 blog-main">
-
-      {% block content %}
-      {% endblock %}
-
-      </div>
-
-        <!-- /.blog-main -->
-
-        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-
-          <div class="sidebar-module sidebar-module-inset">
-            <h4>Авторизация</h4>
-            <div id="login_form">
-                {% if username %}
-                    <form action="{% url 'logout' %}" method="get">
-                        <p>Приветствую тебя, {{username}}!
-                        <input type="submit" value="Выйти"></p>
-                    </form>
-                {% else %}
-                    <div>
-                        <form action="{% url 'login' %}" method="post">
-                            {% csrf_token %}
-                            <input type="text" name="username" id="username" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'* Ваше Имя':this.value;" value="* Ваше Имя" style="margin-bottom: 5px"/>
-                            <input type="password" name="password" id="password" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'* Ваш Пароль':this.value;" value="* Ваш Пароль" style="margin-bottom: 15px"/>
-                            <input type="submit" value="Войти">
-                            {% block error %}
-                            {% endblock %}
-                        </form>
-                    </div>
-                {% endif %}
-            </div>
           </div>
 
 
-          <div class="sidebar-module">
-            <h4>Разделы</h4>
-            <ol class="list-unstyled">
-                {% block subjects %}{% endblock %}
-            </ol>
-          </div>
-          <div class="sidebar-module">
-            <h4>Elsewhere</h4>
-            <ol class="list-unstyled">
-              <li><a href="#">GitHub</a></li>
-              <li><a href="#">Twitter</a></li>
-              <li><a href="#">Facebook</a></li>
-            </ol>
-          </div>
-        </div><!-- /.blog-sidebar -->
 
-      </div><!-- /.row -->
+          <div class="row">
+            {% block login %}{% endblock %}
+            {% block content %}{% endblock %}
+            {% block subjects %}{% endblock %}
+            <!--
+                <div class="sidebar-module">
+                </div>
+            -->
+            <!-- /.blog-sidebar -->
+          </div><!-- /.row -->
+      </div><!-- /.container -->
 
-    </div><!-- /.container -->
-
-    <footer class="blog-footer">
+      <footer class="blog-footer">
       <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
       <p>
-        <a href="#">Back to top</a>
+      <a href="#">Back to top</a>
       </p>
-    </footer>
+      </footer>
 
 
     <!-- Bootstrap core JavaScript
@@ -145,30 +92,5 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-    <!--<script>
-        var div = document.getElementById('login_form');
-        function hiddenShow()
-        {
-           if (div.className == 'login-block-hidden')
-           {
-              div.className='login-block-visible';
-           } else {
-              div.className='login-block-hidden';
-           }
-        }
-
-        function hide(evt)
-        {
-           if (evt.target != document.getElementById('login'))
-           {
-              div.className='login-block-hidden';
-           }
-        }
-        div.addEventListener('click', hiddenShow, false);
-        var body = (document.body) ? document.body : document.documentElement.childNodes[1];
-        body.addEventListener('click', hide, false);
-    </script> -->
-
   </body>
 </html>

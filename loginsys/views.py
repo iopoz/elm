@@ -18,19 +18,19 @@ def login(request):
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             auth.login(request,user)
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            return redirect('/')
         else:
             context['login_error'] = 'Неверно введены данные пользователя'
-            return redirect('loginerror.html')
-            #return render_to_response('loginerror.html', context)
+            #return redirect('loginerror.html')
+            return render_to_response('login.html', context)
             #return HttpResponseRedirectBase(request, context)
     else:
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        return render_to_response('login.html', context)
 
 
 def logout(request):
     auth.logout(request)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return redirect('/')
 
 
 def loginerror(request):
