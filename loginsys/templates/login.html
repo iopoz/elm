@@ -18,14 +18,14 @@
                         <br>
                     {% endif %}
                     <input type="text" name="username" id="username" onclick="this.value='';" onfocus="this.select()" onblur="this.value=!this.value?'* Ваше Имя':this.value;" value="* Ваше Имя" style="margin-bottom: 5px"/>
-                    <input type="text" name="password" id="password" onclick="this.value=''; this.type='password'" onfocus="this.select()" onblur="this.value=!this.value?'* Ваш Пароль':this.value;" value="* Ваш Пароль" style="margin-bottom: 15px"/>
+                    <input type="text" name="password" id="password" onclick="this.value=''; this.type='password'" onfocus="this.select(); this.type='password'; this.value='';" onblur="this.value=!this.value?'* Ваш Пароль':this.value;" value="* Ваш Пароль" style="margin-bottom: 15px"/>
                     <br>
                     <div class="login-btn">
                         <div class="col-md-6">
                             <button class="btn btn-default btn-block" type="submit">Войти</button>
                         </div>
                         <div class="col-md-6">
-                            <a class="btn btn-default btn-block" href="#" type="button">Регистрация</a>
+                            <a class="btn btn-default btn-block" href="{% url 'register' %}" type="button">Регистрация</a>
                         </div>
                     </div>
                 </form>

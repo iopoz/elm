@@ -29,18 +29,19 @@
             <li class ="post-comment">{{ comment.comments_text }}</li>
 
         {% endfor %}
-
         </ul>
 
         </div>
-        <form action ="{% url 'addcomment' article.id %}" method="post">
-                {% csrf_token %}
-                    <div class="comment-field">
-                        {{ form }}
-                    </div>
-                <br>
-                <input type="submit" class="button" value="Добавить комментарий">
-        </form>
+        {% if username %}
+            <form action ="{% url 'addcomment' article.id %}" method="post">
+                    {% csrf_token %}
+                        <div class="comment-field">
+                            {{ form }}
+                        </div>
+                    <br>
+                    <input type="submit" class="button" value="Добавить комментарий">
+            </form>
+        {% endif %}
     </div>
 
 {% endblock %}
