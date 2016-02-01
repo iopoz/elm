@@ -1,13 +1,10 @@
 __author__ = 'EKravchenko'
 
-from django.conf.urls import url, patterns
-from django.contrib import admin
+from django.conf.urls import url
+import loginsys.views
 
-import blog
-
-urlpatterns = patterns('',
-
-                       url(r'^login/', 'loginsys.views.login', name='login'),
-                       url(r'^logout/', 'loginsys.views.logout', name='logout'),
-                       )
+urlpatterns = [
+    url(r'^login/', loginsys.views.login, name='login'),
+    url(r'^logout/', loginsys.views.logout, name='logout'),
+]
 

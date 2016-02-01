@@ -17,8 +17,9 @@ Including another URLconf
 from django.conf.urls import url, include, patterns
 from django.contrib import admin
 
-import blog
 
+
+"""
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('blog.urls')),
@@ -27,3 +28,9 @@ urlpatterns = patterns('',
 
 
 )
+"""
+urlpatterns = [
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^', include('blog.urls')),
+    url(r'^', include('loginsys.urls')),
+]
