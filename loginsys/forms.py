@@ -4,13 +4,14 @@ from django import forms
 from django.contrib.auth import (
     authenticate, get_user_model, password_validation,
 )
+from django.contrib.auth.forms import UserCreationForm
 
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 __author__ = 'EKravchenko'
 
-class UserCreationForm(forms.ModelForm):
+class UserRegistrationForm(forms.ModelForm):
     """
     A form that creates a user, with no privileges, from the given username and
     password.
@@ -21,8 +22,8 @@ class UserCreationForm(forms.ModelForm):
     password1 = forms.CharField(label=_("Password"),
         widget=forms.PasswordInput)
     password2 = forms.CharField(label=_("Password confirmation"),
-        widget=forms.PasswordInput,
-        help_text=_("Enter the same password as before, for verification."))
+        widget=forms.PasswordInput)
+        #help_text=_("Enter the same password as before, for verification."))
 
     class Meta:
         model = User
@@ -44,7 +45,7 @@ class UserCreationForm(forms.ModelForm):
         return password2
 
     def save(self, commit=True):
-        user = super(UserCreationForm, self).save(commit=False)
+        user = super(UserRegistrationForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()

@@ -8,7 +8,7 @@ from django.template.context_processors import csrf
 from django.contrib import auth
 #from django.contrib.auth.forms import UserCreationForm
 from blog.models import *
-from loginsys.forms import UserCreationForm
+from loginsys.forms import UserRegistrationForm
 
 
 def login(request):
@@ -41,21 +41,9 @@ def loginerror(request):
 
 def register(request):
     context = {}
-
     context.update(csrf(request))
-    context['form'] = UserCreationForm()
-    """
-    main_new_user_form = UserCreationForm()
-    context['username'] = main_new_user_form['username']
-    context['email'] = main_new_user_form['email']
-    context['first_name'] = main_new_user_form['first_name']
-    context['last_name'] = main_new_user_form['last_name']
-    context['password'] = main_new_user_form['password1']
-    context['password2'] = main_new_user_form['password2']
-    """
-
     if request.POST:
-        new_user_form = UserCreationForm(request.POST)
+        new_user_form = UserRegistrationForm(request.POST)
         if new_user_form.is_valid():
             new_user_form.save()
             new_user = auth.authenticate(
@@ -65,6 +53,6 @@ def register(request):
             return redirect('/')
         else:
             #main_new_user_form = new_user_form
-            context['form'] = new_user_form
-
+            context['error'] = new_user_form.error_messages
+    #context['form'] = UserRegistrationForm()
     return render_to_response('register.html', context)
