@@ -54,5 +54,9 @@ def register(request):
         else:
             #main_new_user_form = new_user_form
             context['error'] = new_user_form.error_messages
+            context['email'] = new_user_form.cleaned_data.get('email')
+            context['first_name'] = new_user_form.cleaned_data.get('first_name')
+            context['last_name'] = new_user_form.cleaned_data.get('last_name')
+            context['username'] = new_user_form.cleaned_data.get('username')
     #context['form'] = UserRegistrationForm()
     return render_to_response('register.html', context)
