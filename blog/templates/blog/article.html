@@ -14,7 +14,7 @@
     <div class="col-sm-8 blog-main">
         <h1 class="blog-title-mine">{{ article.article_title }}</h1>
         <p>{{ article.article_text }}</p>
-        <p class="blog-post-meta">Дата публикации:{{ article.article_date }}<br>Автор: <a href="#">{% block post-autor %}{% endblock %}</a></p>
+        <p class="blog-post-meta">Дата публикации: {{ article.article_date }}<br>Автор: {{ article.article_author }}</p>
         <br>
         <p> <a style="text-decoration: none;" href="{% url 'addlike' article.id %}"> <img src="{% static 'blog/image/like_icon.png' %}" width="25px" height="25px"> </a>{{ article.article_likes }}</p>
 
@@ -35,11 +35,13 @@
         {% if username %}
             <form action ="{% url 'addcomment' article.id %}" method="post">
                     {% csrf_token %}
+
                         <div class="comment-field">
                             {{ form }}
                         </div>
+
                     <br>
-                    <input type="submit" class="button" value="Добавить комментарий">
+                    <input type="submit" class="button" value="Добавить комментарий" style="margin-bottom: 20px">
             </form>
         {% endif %}
     </div>

@@ -243,16 +243,19 @@ input[type=password]:focus, .your-message:focus {
   display: inline-block;
   padding: 10px;
   font-weight: 500;
+  font-size: medium;
   color: #cdddeb;
 }
 
 .blog-nav-login {
-  position: absolute;
+  position: relative;
   display: inline-block;
   padding: 10px;
   font-weight: 500;
+  font-size: medium;
+
   color: #cdddeb;
-  right: 10px;
+
 }
 
 .blog-nav-login:hover,

@@ -23,6 +23,7 @@ class Article(models.Model):
     article_text = models.TextField()
     article_date = models.DateField()
     article_likes = models.IntegerField(default=0)
+    article_author = models.OneToOneField(User, unique=True)
 
     def __str__(self):
         return self.article_title
