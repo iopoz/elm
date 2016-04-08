@@ -53,5 +53,11 @@
                 {% endfor %}
                 </ol>
         </div>
+
+        {% if username %}
+            <br>
+            <a href="#" class="btn btn-default btn-block btn-own">Создать статю</a>
+            <a href="#" class="btn btn-default btn-block btn-own">Список моих статей</a>
+        {% endif %}
     </div>
 {% endblock %}
