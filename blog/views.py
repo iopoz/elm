@@ -65,3 +65,14 @@ def addcomment(request, article_id):
             request.session.set_expiry(60)
             request.session['pause'] = True
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def newarticle(request):
+    subjects = Subject.objects.all()
+    user = auth.get_user(request).username
+    context = {
+    'subjects': subjects,
+    'username': user
+    }
+    if request.POST:
+        pass
+    return render(request, 'blog/newarticle.html', context)

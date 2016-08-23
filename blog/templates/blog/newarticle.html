@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    Новая статья
+{% endblock %}
+
+{% block header-page %}
+
+
+{% endblock %}
+
+{% block content %}
+    <div class="col-sm-8 blog-main">
+
+            <form action ="{% url 'newarticle'%}" method="post">
+                    {% csrf_token %}
+
+                        <div class="article_unit">
+                            <div id="title" contenteditable="true">
+
+                            </div>
+                            <div id="editor" contenteditable="true">
+
+                            </div>
+                        </div>
+
+                    <br>
+                    <input type="submit" class="button" value="Добавить статью" style="margin-bottom: 20px">
+            </form>
+
+    </div>
+
+{% endblock %}
+
+{% block subjects %}
+    <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+
+        <div class="sidebar-module sidebar-module-inset">
+            <h4>Разделы</h4>
+                <ol class="list-unstyled">
+                {% for subject in subjects %}
+                    <li><a href="#">{{ subject.subject_name }}</a></li>
+                {% endfor %}
+                </ol>
+        </div>
+    </div>
+{% endblock %}
