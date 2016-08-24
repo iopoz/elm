@@ -1,10 +1,11 @@
+from datetime import date
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
 from django.shortcuts import render_to_response
 from django.template.context_processors import csrf
-from blog.forms import CommentForm
+from blog.forms import CommentForm, NewArticleForm
 from blog.models import *
 from django.contrib import auth
 
@@ -69,10 +70,21 @@ def addcomment(request, article_id):
 def newarticle(request):
     subjects = Subject.objects.all()
     user = auth.get_user(request).username
+    form = NewArticleForm(request.POST)
     context = {
-    'subjects': subjects,
-    'username': user
+        'subjects': subjects,
+        'username': user,
+        'form': form
+
+
     }
     if request.POST:
-        pass
+
+        if form.is_valid():
+            article = form.save(commit=False)
+            article.article_author_id = auth.get_user(request).id
+            article.article_date = date.today()
+            form.save()
+            request.session.set_expiry(60)
+            request.session['pause'] = True
     return render(request, 'blog/newarticle.html', context)

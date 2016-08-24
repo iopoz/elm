@@ -16,14 +16,8 @@
             <form action ="{% url 'newarticle'%}" method="post">
                     {% csrf_token %}
 
-                        <div class="article_unit">
-                            <div id="title" contenteditable="true">
 
-                            </div>
-                            <div id="editor" contenteditable="true">
-
-                            </div>
-                        </div>
+                    {{ form }}
 
                     <br>
                     <input type="submit" class="button" value="Добавить статью" style="margin-bottom: 20px">
