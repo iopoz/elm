@@ -19,8 +19,18 @@
     <link href="{% static 'blog/CSS/blog.css' %}" rel="stylesheet">
     <link href="{% static 'blog/CSS/style.css' %}" rel="stylesheet">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://harvesthq.github.io/chosen/chosen.jquery.js"></script>
+    <script>
+      $(function() {
+        $('.chosen-select').chosen();
+        $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+      });
+    </script>
+
   </head>
   <body>
+
       <div class="blog-masthead">
           <div class="container">
           <div class="row">

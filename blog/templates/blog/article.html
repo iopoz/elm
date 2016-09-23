@@ -35,8 +35,9 @@
         {% if username %}
             <form action ="{% url 'addcomment' article.id %}" method="post">
                     {% csrf_token %}
-
+                        <label>Комментарий</label>
                         <div class="comment-field">
+
                             {{ form }}
                         </div>
 

@@ -16,8 +16,35 @@
             <form action ="{% url 'newarticle'%}" method="post">
                     {% csrf_token %}
 
+                    <div class="form-group">
+                        <label for="title">Заголовок статьи</label>
+                        <input type="text" class="form-control" id="title" name="title">
+                    </div>
 
-                    {{ form }}
+{#                    <div class="form-group">#}
+{#                        <label for="subject">Тема</label>#}
+{#                        <select multiple class="form-control" id="subject" name="subject">#}
+{#                            {% for subject in subjects %}#}
+{#                                <option>{{ subject.subject_name }}</option>#}
+{#                            {% endfor %}#}
+{##}
+{##}
+{#                        </select>#}
+{#                      </div>#}
+
+                    <div class="form-group">
+                        <label for="desctiption">Статья</label>
+                        <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+                    </div>
+
+
+                        <select data-placeholder="Выберите тему" class="chosen-select" name="subjects" id="subjects" multiple tabindex="4">
+                            {% for subject in subjects %}
+                                <option>{{ subject }}</option>
+                            {% endfor %}
+                        </select>
+
+
 
                     <br>
                     <input type="submit" class="button" value="Добавить статью" style="margin-bottom: 20px">

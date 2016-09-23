@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 # Create your views here.
 from django.shortcuts import render_to_response
 from django.template.context_processors import csrf
-from blog.forms import CommentForm, NewArticleForm
+from blog.forms import CommentForm, NewArticleForm#, NewArticleSubjectForm
 from blog.models import *
 from django.contrib import auth
 
@@ -70,21 +70,47 @@ def addcomment(request, article_id):
 def newarticle(request):
     subjects = Subject.objects.all()
     user = auth.get_user(request).username
-    form = NewArticleForm(request.POST)
+    new_article = NewArticleForm(request.POST)
+    #subject_for_article = NewArticleSubjectForm(request.POST)
+    #sa = SubjectArticle.objects.all()
     context = {
         'subjects': subjects,
         'username': user,
-        'form': form
-
-
     }
     if request.POST:
+        if new_article.is_valid():
+            #if new_article.is_valid():
+            #new_article.save(commit=False)
+            new_article.article_title = request.POST['title']
+            new_article.article_text = request.POST['description']
+            new_article.article_date = date.today()
+            new_article.article_likes = 0
+            new_article.article_author = auth.get_user(request)
 
-        if form.is_valid():
-            article = form.save(commit=False)
-            article.article_author_id = auth.get_user(request).id
-            article.article_date = date.today()
-            form.save()
-            request.session.set_expiry(60)
-            request.session['pause'] = True
+            #subject_for_article.fields.subject_id.add(1)
+            #sa.subject_id.add(1)
+
+
+            # form.article_author_id = auth.get_user(request).id
+            # form.article_date = date.today()
+            new_article.save()
+            new_article.article_subject.add(request.POST['subjects'])
+
+        request.session.set_expiry(60)
+        request.session['pause'] = True
     return render(request, 'blog/newarticle.html', context)
+        #posts = AddNewEvent
+    # context = {}
+    # context['EventsMod'] = AddNewEvent
+    # context.update(csrf(request))
+    # if request.POST:
+    #     new_event = AddNewEvent(request.POST, request.FILES)
+    #     new_event.title = request.POST['title']
+    #     new_event.description = request.POST['description']
+    #     new_event.location = request.POST['location']
+    #     new_event.image = request.FILES['image']
+    #     new_event.start_time = request.POST['start_time']
+    #     new_event.start_date = request.POST['start_date']
+    #     new_event.save()
+    #     return redirect('post_list')
+    # return render(request, 'blog/newarticle.html', context)

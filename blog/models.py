@@ -16,14 +16,14 @@ class Subject(models.Model):
 
 
 class Article(models.Model):
-    class Meta:
-        db_table = 'article'
-
     article_title = models.CharField(max_length=200)
     article_text = models.TextField()
     article_date = models.DateField()
     article_likes = models.IntegerField(default=0)
-    article_author = models.OneToOneField(User, unique=True)
+    article_author = models.ForeignKey(User)
+    article_subject = models.ManyToManyField(Subject)
+    class Meta:
+        db_table = 'article'
 
     def __str__(self):
         return self.article_title
@@ -43,9 +43,9 @@ class Comments(models.Model):
     comments_article = models.ForeignKey(Article)
 
 
-class SubjectArticle(models.Model):
-    class Meta:
-        db_table = 'subject_article'
-
-    article_id = models.ForeignKey(Article)
-    subject_id = models.ForeignKey(Subject)
+# class SubjectArticle(models.Model):
+#     class Meta:
+#         db_table = 'subject_article'
+#
+#     article_id = models.ForeignKey(Article)
+#     subject_id = models.ForeignKey(Subject)
