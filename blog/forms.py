@@ -15,9 +15,7 @@ class NewArticleForm(forms.ModelForm):
     class Meta:
         model = Article
 
-        fields = ['article_title', 'article_text', 'article_date',
-                  'article_likes',
-                  'article_author', 'article_subject']
+        fields = ['article_title', 'article_text', 'article_date',]
 
 # class NewArticleSubjectForm(forms.ModelForm):
 #     class Meta:

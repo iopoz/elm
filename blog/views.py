@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 # Create your views here.
 from django.shortcuts import render_to_response
 from django.template.context_processors import csrf
-from blog.forms import CommentForm, NewArticleForm#, NewArticleSubjectForm
+from blog.forms import CommentForm, NewArticleForm  # , NewArticleSubjectForm
 from blog.models import *
 from django.contrib import auth
 
@@ -31,13 +31,14 @@ def about(request):
     }
     return render(request, 'blog/about.html', context)
 
+
 def display_article(request, article_id):
     comment_form = CommentForm(request.POST)
     context = {}
     context.update(csrf(request))
     context['article'] = get_object_or_404(Article, id=article_id)
     context['subjects'] = Subject.objects.all()
-    context['comments'] = Comments.objects.filter(comments_article_id = article_id)
+    context['comments'] = Comments.objects.filter(comments_article_id=article_id)
     context['form'] = comment_form['comments_text']
     context['username'] = auth.get_user(request).username
 
@@ -49,7 +50,7 @@ def addlike(request, article_id):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:
         article = get_object_or_404(Article, id=article_id)
-        article.article_likes +=1
+        article.article_likes += 1
         article.save()
         response = HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         response.set_cookie(article_id, 'test')
@@ -67,39 +68,50 @@ def addcomment(request, article_id):
             request.session['pause'] = True
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+
 def newarticle(request):
     subjects = Subject.objects.all()
     user = auth.get_user(request).username
-    new_article = NewArticleForm(request.POST)
-    #subject_for_article = NewArticleSubjectForm(request.POST)
-    #sa = SubjectArticle.objects.all()
+
+    # subject_for_article = NewArticleSubjectForm(request.POST)
+    # sa = SubjectArticle.objects.all()
     context = {
         'subjects': subjects,
         'username': user,
     }
     if request.POST:
+        new_article = NewArticleForm(request.POST)
+        # if new_article.is_valid():
+        # if new_article.is_valid():
+        # new_article.save(commit=False)
+        # new_article.article_title = request.POST['title']
+        # new_article.article_text = request.POST['description']
+        # new_article.article_date = date.today()
+        # new_article.article_author = User
         if new_article.is_valid():
-            #if new_article.is_valid():
-            #new_article.save(commit=False)
-            new_article.article_title = request.POST['title']
-            new_article.article_text = request.POST['description']
-            new_article.article_date = date.today()
-            new_article.article_likes = 0
-            new_article.article_author = auth.get_user(request)
+            article = new_article.save(commit=False)
+            article.article_author = request.user
+            article.article_text = request.POST['description']
+            article.article_title = request.POST['title']
+            article.article_date = date.today()
+            article.save()
+            for i in range(len(request.POST.getlist('subjects'))):
+                article.article_subject.add(subjects.get(
+                    subject_name=request.POST.getlist('subjects')[i]).id)
 
-            #subject_for_article.fields.subject_id.add(1)
-            #sa.subject_id.add(1)
+        # subject_for_article.fields.subject_id.add(1)
+        # sa.subject_id.add(1)
 
 
-            # form.article_author_id = auth.get_user(request).id
-            # form.article_date = date.today()
-            new_article.save()
-            new_article.article_subject.add(request.POST['subjects'])
+        # form.article_author_id = auth.get_user(request).id
+        # form.article_date = date.today()
+        # new_article.save()
+        # new_article.article_subject.add(request.POST['subjects'])
 
         request.session.set_expiry(60)
         request.session['pause'] = True
     return render(request, 'blog/newarticle.html', context)
-        #posts = AddNewEvent
+    # posts = AddNewEvent
     # context = {}
     # context['EventsMod'] = AddNewEvent
     # context.update(csrf(request))

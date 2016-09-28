@@ -38,11 +38,11 @@
                     </div>
 
 
-                        <select data-placeholder="Выберите тему" class="chosen-select" name="subjects" id="subjects" multiple tabindex="4">
-                            {% for subject in subjects %}
-                                <option>{{ subject }}</option>
-                            {% endfor %}
-                        </select>
+                    <select name="subjects" id="subjects" multiple class="form-control">
+                        {% for subject in subjects %}
+                            <option value="{{ subject }}">{{ subject }}</option>
+                        {% endfor %}
+                    </select>
 
 
 

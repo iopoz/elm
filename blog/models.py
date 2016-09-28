@@ -16,10 +16,10 @@ class Subject(models.Model):
 
 
 class Article(models.Model):
-    article_title = models.CharField(max_length=200)
-    article_text = models.TextField()
-    article_date = models.DateField()
-    article_likes = models.IntegerField(default=0)
+    article_title = models.CharField(blank=True, null=True, max_length=200)
+    article_text = models.TextField(blank=True, null=True,)
+    article_date = models.DateField(blank=True, null=True,)
+    article_likes = models.IntegerField(default=0, blank=True, null=True)
     article_author = models.ForeignKey(User)
     article_subject = models.ManyToManyField(Subject)
     class Meta:
