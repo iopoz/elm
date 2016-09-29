@@ -11,46 +11,51 @@
 {% endblock %}
 
 {% block content %}
-    <div class="col-sm-8 blog-main">
+    <div id="container">
+        <div id="content">
+            <div class="col-sm-8 blog-main">
 
-            <form action ="{% url 'newarticle'%}" method="post">
-                    {% csrf_token %}
+                <form action ="{% url 'newarticle'%}" method="post">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label for="title">Заголовок статьи</label>
+                            <input type="text" class="form-control" id="title" name="title">
+                        </div>
+                        <div class="form-group">
+                            <label for="desctiption">Статья</label>
+                            <div>
+                                <textarea class="form-control" name="description" id="description" rows="10" cols="80">
+                                </textarea>
+                                <script>
+                                    CKEDITOR.replace( 'description' );
+                                </script>
+                            </div>
+
+                        </div>
 
                     <div class="form-group">
-                        <label for="title">Заголовок статьи</label>
-                        <input type="text" class="form-control" id="title" name="title">
-                    </div>
-
-{#                    <div class="form-group">#}
-{#                        <label for="subject">Тема</label>#}
-{#                        <select multiple class="form-control" id="subject" name="subject">#}
-{#                            {% for subject in subjects %}#}
-{#                                <option>{{ subject.subject_name }}</option>#}
-{#                            {% endfor %}#}
-{##}
-{##}
-{#                        </select>#}
-{#                      </div>#}
-
-                    <div class="form-group">
-                        <label for="desctiption">Статья</label>
-                        <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+                        <label for="subjects">Тематика статьи</label>
+                        <br>
+                        <select name="subjects" id="subjects" data-placeholder="Выберите тему..." class="chosen-select" multiple style="width:350px;">
+                            {% for subject in subjects %}
+                                <option value="{{ subject }}">{{ subject }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
 
 
-                    <select name="subjects" id="subjects" multiple class="form-control">
-                        {% for subject in subjects %}
-                            <option value="{{ subject }}">{{ subject }}</option>
-                        {% endfor %}
-                    </select>
 
+                        <br>
+                        {% if username %}
+                            <input type="submit" class="button" value="Добавить статью" style="margin-bottom: 20px">
+                        {% endif %}
+                </form>
 
-
-                    <br>
-                    <input type="submit" class="button" value="Добавить статью" style="margin-bottom: 20px">
-            </form>
-
+            </div>
+        </div>
     </div>
+
 
 {% endblock %}
 
@@ -67,3 +72,4 @@
         </div>
     </div>
 {% endblock %}
+

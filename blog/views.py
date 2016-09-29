@@ -15,7 +15,7 @@ def home(request):
     subjects = Subject.objects.all()
     user = auth.get_user(request).username
     context = {
-        'articles': articles,
+        'articles': list(reversed(articles)),
         'subjects': subjects,
         'username': user
     }
@@ -95,9 +95,14 @@ def newarticle(request):
             article.article_title = request.POST['title']
             article.article_date = date.today()
             article.save()
-            for i in range(len(request.POST.getlist('subjects'))):
+            len_subj = len(request.POST.getlist('subjects'))
+            if len_subj < 1:
                 article.article_subject.add(subjects.get(
-                    subject_name=request.POST.getlist('subjects')[i]).id)
+                    subject_name='Общее').id)
+            else:
+                for i in range(len_subj):
+                    article.article_subject.add(subjects.get(
+                        subject_name=request.POST.getlist('subjects')[i]).id)
 
         # subject_for_article.fields.subject_id.add(1)
         # sa.subject_id.add(1)

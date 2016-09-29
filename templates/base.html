@@ -19,14 +19,10 @@
     <link href="{% static 'blog/CSS/blog.css' %}" rel="stylesheet">
     <link href="{% static 'blog/CSS/style.css' %}" rel="stylesheet">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="http://harvesthq.github.io/chosen/chosen.jquery.js"></script>
-    <script>
-      $(function() {
-        $('.chosen-select').chosen();
-        $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
-      });
-    </script>
+  <link rel="stylesheet" href="{% static 'blog/CSS/docsupport/prism.css' %}">
+  <link rel="stylesheet" href="{% static 'blog/CSS/chosen.css'%}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script src="{% static 'ckeditor/ckeditor.js' %}"></script>
 
   </head>
   <body>
@@ -87,5 +83,27 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js" type="text/javascript"></script>
+  <script src="{% static 'blog/JS/chosen.proto.js' %}" type="text/javascript"></script>
+  <script src="{% static 'blog/JS/docsupport/prism.js' %}" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+  document.observe('dom:loaded', function(evt) {
+    var config = {
+      '.chosen-select'           : {},
+      '.chosen-select-deselect'  : {allow_single_deselect:true},
+      '.chosen-select-no-single' : {disable_search_threshold:10},
+      '.chosen-select-no-results': {no_results_text: "Oops, nothing found!"},
+      '.chosen-select-width'     : {width: "95%"}
+    }
+    var results = [];
+    for (var selector in config) {
+      var elements = $$(selector);
+      for (var i = 0; i < elements.length; i++) {
+        results.push(new Chosen(elements[i],config[selector]));
+      }
+    }
+    return results;
+  });
+  </script>
   </body>
 </html>
