@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^articles/addlike/(?P<article_id>[0-9]+)/$', blog.views.addlike, name='addlike'),
     url(r'^articles/addcomment/(?P<article_id>[0-9]+)/$', blog.views.addcomment, name='addcomment'),
     url(r'^newarticle/$', blog.views.newarticle, name='newarticle'),
+    url(r'^page/([0-9]+)/$', blog.views.home, name='home_by_page')
 ]

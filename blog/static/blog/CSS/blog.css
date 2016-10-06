@@ -460,3 +460,10 @@ textarea {
     border-bottom-left-radius: 3px;
     border-top-left-radius: 3px;
 }
+
+.current {
+    background-color: blue;
+    color: white;
+}
+
+.chosen-sample { width: 300px }

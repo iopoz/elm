@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-    <div id="container">
+    <div id="container" xmlns="http://www.w3.org/1999/html">
         <div id="content">
             <div class="col-sm-8 blog-main">
 
@@ -23,21 +23,18 @@
                             <input type="text" class="form-control" id="title" name="title">
                         </div>
                         <div class="form-group">
-                            <label for="desctiption">Статья</label>
+                            <label for="description">Статья</label>
                             <div>
-                                <textarea class="form-control" name="description" id="description" rows="10" cols="80">
-                                </textarea>
-                                <script>
-                                    CKEDITOR.replace( 'description' );
-                                </script>
+                                <textarea  name="description" id="description"></textarea>
                             </div>
+
 
                         </div>
 
                     <div class="form-group">
                         <label for="subjects">Тематика статьи</label>
                         <br>
-                        <select name="subjects" id="subjects" data-placeholder="Выберите тему..." class="chosen-select" multiple style="width:350px;">
+                        <select name="subjects" id="subjects" data-placeholder="Выберите тему..." class="chosen-sample" multiple>
                             {% for subject in subjects %}
                                 <option value="{{ subject }}">{{ subject }}</option>
                             {% endfor %}
@@ -55,6 +52,7 @@
             </div>
         </div>
     </div>
+
 
 
 {% endblock %}
